@@ -1,0 +1,40 @@
+
+<div class="parent-cont" id="vax-ax-ui">
+<div class="table-wrap">
+  <table class="table_css">
+    <thead>
+<tr class="head-r head-tr">
+  <th class="width_check">
+    <label class="check-outer">
+      <input autocomplete="off" type="checkbox" name="all" [checked]="isAllChecked()" (change)="checkAlls($event)"/>
+      <span class="checkmark"></span>
+    </label>
+    </th>
+  <th class="wrap-text width_id">Data Id</th>
+  <th class="wrap-text width_sample">Sample Time Found</th>
+  <th class="wrap-text width_range">Data Range</th>
+</tr>
+    </thead>
+    <tbody>
+<tr class="body-tr head-r" *ngFor="let forecast of tableData;let i=index;">
+  <td class="width_check">
+    <label class="check-outer">
+        <input autocomplete="off" type="checkbox" (click)="addRow(forecast)" [(ngModel)]="forecast.checkboxdata" id="{{forecast.dataId}}" name="checkboxdata"/>
+        <span class="checkmark"></span>
+    </label>
+    </td>
+  <td class="wrap-text width_id">{{forecast.dataId}}</td>
+  <td class="wrap-text width_sample">{{forecast.sampleTime}}</td>
+  <td class="wrap-text width_range">{{forecast.defaultDataRange}}</td>
+</tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<a routerLink="/forecast">
+  To Forecast
+</a>
+</div>
