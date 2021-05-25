@@ -11,7 +11,7 @@
     "build:single-spa": "ng build --prod --aot --output-hashing none",
     "serve:single-spa": "ng serve --disable-host-check --port 4203 --deploy-url http://localhost:4203/ --live-reload false",
     "start": "node server.js",
-    "build": "ng build --prod --aot",
+    "build": "npm run build:single-spa",
     "postinstall": "npm run build:single-spa"
   },
   "private": true,
