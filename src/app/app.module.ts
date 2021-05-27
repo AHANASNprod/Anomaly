@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { EmptyRouteComponent } from './empty-route/empty-route.component';
 import { FormsModule } from '@angular/forms';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
+import { HttpClientModule } from '@angular/common/http';
 const dbConfig: DBConfig = {
   name: 'vax-mcf-app',
   version: 1,
@@ -38,6 +39,7 @@ const dbConfig: DBConfig = {
     AppRoutingModule,
     FormsModule,
     NgxIndexedDBModule.forRoot(dbConfig),
+    HttpClientModule
   ],
   providers: [
   ],
