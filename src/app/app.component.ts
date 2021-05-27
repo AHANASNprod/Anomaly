@@ -72,11 +72,12 @@ export class AppComponent implements OnDestroy, OnInit {
     });
   }
   ngOnInit(): void {
-    this.apiService.getTableData().subscribe((res) => {
-      console.log(res);
-      this.tableData = res;
-      this.loadSelectedData();
-    })
+    // this.apiService.getTableData().subscribe((res) => {
+    //   console.log(res);
+    //   this.tableData = res;
+     
+    // });
+    this.loadSelectedData();
         
       }
   loadSelectedData(): void {
