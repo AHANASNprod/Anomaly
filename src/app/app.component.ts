@@ -1,6 +1,7 @@
 import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import { IndexDbService } from './services/index-db.service';
-
+import { singleSpaPropsSubject } from './../single-spa/single-spa-props';
+import { Router } from '@angular/router';
 @Component({
   selector: 'anomaly-root',
   templateUrl: './app.component.html',
@@ -56,8 +57,15 @@ export class AppComponent implements OnDestroy, OnInit {
   selectedRow = 0;
   count: number;
   subscription;
+  namespace;
   constructor(
-    private idbService: IndexDbService) {
+    private idbService: IndexDbService,
+    private router: Router) {
+    singleSpaPropsSubject.subscribe((app: any) => {
+      if (app &&  app.mainApp &&  app.mainApp.namespace) {
+          this.namespace = app.mainApp.namespace;
+      }
+    });
   }
   ngOnInit(): void {
     this.idbService.getAllData('table-data', 1).subscribe((data) => {
@@ -109,7 +117,9 @@ export class AppComponent implements OnDestroy, OnInit {
     }
   }
 
-
+navigate(path) {
+  this.router.navigate(['/' + this.namespace + '-' + path]);
+}
   ngOnDestroy(): void {
   }
 }
