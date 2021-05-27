@@ -2,6 +2,8 @@ import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core'
 import { IndexDbService } from './services/index-db.service';
 import { singleSpaPropsSubject } from './../single-spa/single-spa-props';
 import { Router } from '@angular/router';
+import { SessionService } from './services/session.service';
+import { ApiService } from './services/api.service';
 @Component({
   selector: 'anomaly-root',
   templateUrl: './app.component.html',
@@ -59,7 +61,9 @@ export class AppComponent implements OnDestroy, OnInit {
   subscription;
   namespace;
   constructor(
+    private apiService: ApiService,
     private idbService: IndexDbService,
+    private sesService: SessionService,
     private router: Router) {
     singleSpaPropsSubject.subscribe((app: any) => {
       if (app &&  app.mainApp &&  app.mainApp.namespace) {
@@ -68,15 +72,26 @@ export class AppComponent implements OnDestroy, OnInit {
     });
   }
   ngOnInit(): void {
-    this.idbService.getAllData('table-data', 1).subscribe((data) => {
+    this.apiService.getTableData().subscribe((res) => {
+      console.log(res);
+      this.tableData = res;
+      this.loadSelectedData();
+    })
+        
+      }
+  loadSelectedData(): void {
+    this.id = +this.sesService.getKeyValue('ID') !== 0 ? +this.sesService.getKeyValue('ID') : undefined;
+
+    this.idbService.getAllData('table-data', this.id).subscribe((data) => {
       if (data) {
-        this.id = 1;
         data.forEach(element => {
           const index = this.tableData.findIndex(r => r.dataId === element.dataId);
           if (element.checkboxdata && index !== -1) {
             this.tableData[index].checkboxdata = true;
           }
         });
+      } else {
+        this.id = undefined;
       }
     });
   }
@@ -113,11 +128,12 @@ export class AppComponent implements OnDestroy, OnInit {
     } else {
       this.idbService.addData(this.tableData).subscribe((res) => {
         this.id = res;
+        this.sesService.setKeyValue('ID', this.id);
       });
     }
   }
 
-navigate(path) {
+navigate(path): void {
   this.router.navigate(['/' + this.namespace + '-' + path]);
 }
   ngOnDestroy(): void {
