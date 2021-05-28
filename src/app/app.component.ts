@@ -94,8 +94,6 @@ export class AppComponent implements OnDestroy, OnInit {
             this.tableData[index].checkboxdata = true;
           }
         });
-      } else {
-        this.id = undefined;
       }
     });
   }
