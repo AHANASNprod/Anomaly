@@ -86,8 +86,8 @@ export class AppComponent implements OnDestroy, OnInit {
     this.id = +this.sesService.getKeyValue('ID') !== 0 ? +this.sesService.getKeyValue('ID') : undefined;
 
     this.idbService.getAllData('table-data', this.id).subscribe((data) => {
-      delete data.id;
       if (data && data.length) {
+        delete data.id;
         data.forEach(element => {
           const index = this.tableData.findIndex(r => r.dataId === element.dataId);
           if (element.checkboxdata && index !== -1) {
