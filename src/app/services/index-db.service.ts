@@ -12,8 +12,8 @@ export class IndexDbService {
     return this.dbService.add('table-data', data);
   }
   updateData(data, i): Observable<any> {
-    const  obj = data.id = i;
-    return this.dbService.update('table-data', data);
+    const  obj = {...data, id: i};
+    return this.dbService.update('table-data', obj);
   }
   removeData(data): Observable<any> {
     return this.dbService.deleteByKey('table-data', data);

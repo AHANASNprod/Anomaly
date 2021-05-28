@@ -10,6 +10,6 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
   getTableData(): Observable<any> {
-    return this.http.get(assetUrl('test.json'));
+    return this.http.get('https://container-config.herokuapp.com/api/con/tabledata');
   }
 }
