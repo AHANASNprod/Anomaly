@@ -4,6 +4,7 @@ import { singleSpaPropsSubject } from './../single-spa/single-spa-props';
 import { Router } from '@angular/router';
 import { SessionService } from './services/session.service';
 import { ApiService } from './services/api.service';
+import { ChildComponent } from './child/child.component';
 @Component({
   selector: 'anomaly-root',
   templateUrl: './app.component.html',
@@ -68,6 +69,8 @@ export class AppComponent implements OnDestroy, OnInit {
     singleSpaPropsSubject.subscribe((app: any) => {
       if (app &&  app.mainApp &&  app.mainApp.namespace) {
           this.namespace = app.mainApp.namespace;
+          this.router.config.unshift({ path: this.namespace + '-anomaly', children: [{ path: 'child', component: ChildComponent }]
+          });
       }
     });
   }
@@ -136,6 +139,9 @@ export class AppComponent implements OnDestroy, OnInit {
 
 navigate(path): void {
   this.router.navigate(['/' + this.namespace + '-' + path]);
+}
+navigateToCurrentApp(path) {
+  this.router.navigate(['/' + this.namespace + '-' + 'anomaly/' + path]);
 }
   ngOnDestroy(): void {
   }

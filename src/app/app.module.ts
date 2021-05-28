@@ -7,6 +7,7 @@ import { EmptyRouteComponent } from './empty-route/empty-route.component';
 import { FormsModule } from '@angular/forms';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
 import { HttpClientModule } from '@angular/common/http';
+import { ChildComponent } from './child/child.component';
 const dbConfig: DBConfig = {
   name: 'vax-mcf-app',
   version: 1,
@@ -32,7 +33,8 @@ const dbConfig: DBConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    EmptyRouteComponent
+    EmptyRouteComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule,

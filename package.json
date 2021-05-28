@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start1": "npm run serve:single-spa",
-    "build2": "npm run build:single-spa",
+    "local": "npm run serve:single-spa",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

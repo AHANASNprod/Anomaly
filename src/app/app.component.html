@@ -31,10 +31,30 @@
   </table>
 </div>
 
-
-
-
-<a (click)="navigate('forecast')" >
-  To Forecast
-</a>
+<router-outlet></router-outlet>
 </div>
+
+
+
+  
+<ul>
+  <li>
+    <a (click)="navigate('forecast')" >
+      To Forecast
+    </a>
+    
+  </li>
+  <li>
+    
+
+
+<a (click)="navigateToCurrentApp('child')" routerLinkActive="router-link-active" >Click here to go Anomaly child</a>
+  </li>
+  <li>
+   
+
+
+<a (click)="navigate('forecast/child')" routerLinkActive="router-link-active" >Click here to go Forecast child</a>
+    
+  </li>
+</ul>
