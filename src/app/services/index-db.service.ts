@@ -12,14 +12,14 @@ export class IndexDbService {
     return this.dbService.add('table-data', data);
   }
   updateData(data, i): Observable<any> {
-    const  obj = {...data, id: i};
+    const  obj = {...data, id : i};
     return this.dbService.update('table-data', obj);
   }
   removeData(data): Observable<any> {
     return this.dbService.deleteByKey('table-data', data);
   }
-  clearIndexDb(): void {
-    this.dbService.deleteDatabase().subscribe((res) => {
+  clearIndexDb(id): void {
+    this.dbService.deleteByKey('table-data', id).subscribe((res) => {
       console.log('deleted');
     });
   }
