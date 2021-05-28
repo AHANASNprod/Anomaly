@@ -14,48 +14,49 @@ export class AppComponent implements OnDestroy, OnInit {
   title = 'Anomaly';
   yoshiUrl = '';
   id;
-  tableData = [
-    {
-      dataId: '1MJF901@1-20-19@OPTMIN@PM_NEAR_END_Tx',
-      sampleTime: 5,
-      ne: '1MJF901',
-      pmType: 'OPR',
-      defaultDataRange: '10,20',
-      timeForForwardPrediction: 12,
-      modelConfigName: 'OPR',
-      jobStatus: 'PAUSED',
-      dataSetName: 'pmdata',
-      jobType: 'EXECUTION',
-      modelType: 'FORECAST',
-      checkboxdata: false,
-    }, {
-      dataId: '2MJF901@1-20-19@OPTMIN@PM_NEAR_END_Tx',
-      sampleTime: 5,
-      ne: '1MJF901',
-      pmType: 'OPR',
-      defaultDataRange: '10,20',
-      timeForForwardPrediction: 12,
-      modelConfigName: 'OPR',
-      jobStatus: 'PAUSED',
-      dataSetName: 'pmdata21',
-      jobType: 'EXECUTION',
-      modelType: 'FORECAST',
-      checkboxdata: false,
-    }, {
-      dataId: '3MJF901@1-20-19@OPTMIN@PM_NEAR_END_Tx',
-      sampleTime: 5,
-      ne: '1MJF901',
-      pmType: 'OPR',
-      defaultDataRange: '10,20',
-      timeForForwardPrediction: 12,
-      modelConfigName: 'OPR',
-      jobStatus: 'PAUSED',
-      dataSetName: 'pmdata213',
-      jobType: 'EXECUTION',
-      modelType: 'FORECAST',
-      checkboxdata: false,
-    }
-  ];
+  tableData =[];
+  // tableData = [
+  //   {
+  //     dataId: '1MJF901@1-20-19@OPTMIN@PM_NEAR_END_Tx',
+  //     sampleTime: 5,
+  //     ne: '1MJF901',
+  //     pmType: 'OPR',
+  //     defaultDataRange: '10,20',
+  //     timeForForwardPrediction: 12,
+  //     modelConfigName: 'OPR',
+  //     jobStatus: 'PAUSED',
+  //     dataSetName: 'pmdata',
+  //     jobType: 'EXECUTION',
+  //     modelType: 'FORECAST',
+  //     checkboxdata: false,
+  //   }, {
+  //     dataId: '2MJF901@1-20-19@OPTMIN@PM_NEAR_END_Tx',
+  //     sampleTime: 5,
+  //     ne: '1MJF901',
+  //     pmType: 'OPR',
+  //     defaultDataRange: '10,20',
+  //     timeForForwardPrediction: 12,
+  //     modelConfigName: 'OPR',
+  //     jobStatus: 'PAUSED',
+  //     dataSetName: 'pmdata21',
+  //     jobType: 'EXECUTION',
+  //     modelType: 'FORECAST',
+  //     checkboxdata: false,
+  //   }, {
+  //     dataId: '3MJF901@1-20-19@OPTMIN@PM_NEAR_END_Tx',
+  //     sampleTime: 5,
+  //     ne: '1MJF901',
+  //     pmType: 'OPR',
+  //     defaultDataRange: '10,20',
+  //     timeForForwardPrediction: 12,
+  //     modelConfigName: 'OPR',
+  //     jobStatus: 'PAUSED',
+  //     dataSetName: 'pmdata213',
+  //     jobType: 'EXECUTION',
+  //     modelType: 'FORECAST',
+  //     checkboxdata: false,
+  //   }
+  // ];
 
   selectedRow = 0;
   count: number;
@@ -104,7 +105,6 @@ export class AppComponent implements OnDestroy, OnInit {
     this.tableData.forEach(x => x.checkboxdata = ev.target.checked);
     if (this.id) {
       this.idbService.updateData(this.tableData, this.id).subscribe((res) => {
-        this.id = res;
       });
     } else {
       this.idbService.addData(this.tableData).subscribe((res) => {
@@ -125,7 +125,6 @@ export class AppComponent implements OnDestroy, OnInit {
   addRow(forecast): void {
     if (this.id) {
       this.idbService.updateData(this.tableData, this.id).subscribe((res) => {
-        this.id = res;
       });
     } else {
       this.idbService.addData(this.tableData).subscribe((res) => {
