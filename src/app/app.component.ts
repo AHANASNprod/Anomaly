@@ -31,7 +31,9 @@ export class AppComponent implements OnDestroy, OnInit {
       }
     });
     this.globals.globalEventDistributor.getDataFromContainer().subscribe((res) => {
-      console.log(' i got your message', res);
+      if (res) {
+        console.log(' i got your message in anomaly', res);
+      }
     });
   }
   ngOnInit(): void {
