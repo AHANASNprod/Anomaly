@@ -15,7 +15,8 @@ if (environment.production) {
 const lifecycles = singleSpaAngular({
   bootstrapFunction: singleSpaProps => {
     singleSpaPropsSubject.next(singleSpaProps);
-    return platformBrowserDynamic(getSingleSpaExtraProviders()).bootstrapModule(AppModule);
+    return platformBrowserDynamic([getSingleSpaExtraProviders(),
+      {provide: 'globalEventDispatcherRef', useValue: singleSpaProps['globalEventDistributor']}]).bootstrapModule(AppModule);
   },
   template: '<anomaly-root />',
   Router,

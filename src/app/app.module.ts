@@ -1,35 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmptyRouteComponent } from './empty-route/empty-route.component';
 import { FormsModule } from '@angular/forms';
-import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
 import { HttpClientModule } from '@angular/common/http';
 import { ChildComponent } from './child/child.component';
-const dbConfig: DBConfig = {
-  name: 'vax-mcf-app',
-  version: 1,
-  objectStoresMeta: [{
-    store: 'table-data',
-    storeConfig: { keyPath: 'id', autoIncrement: true },
-    storeSchema: [
-      { name: 'dataId', keypath: 'dataId', options: { unique: true } },
-      { name: 'sampleTime', keypath: 'sampleTime', options: { unique: false } },
-      { name: 'ne', keypath: 'ne', options: { unique: false } },
-      { name: 'pmType', keypath: 'pmType', options: { unique: false } },
-      { name: 'defaultDataRange', keypath: 'defaultDataRange', options: { unique: false } },
-      { name: 'timeForForwardPrediction', keypath: 'timeForForwardPrediction', options: { unique: false } },
-      { name: 'modelConfigName', keypath: 'modelConfigName', options: { unique: false } },
-      { name: 'jobStatus', keypath: 'jobStatus', options: { unique: false } },
-      { name: 'dataSetName', keypath: 'dataSetName', options: { unique: false } },
-      { name: 'jobType', keypath: 'jobType', options: { unique: false } },
-      { name: 'modelType', keypath: 'modelType', options: { unique: false } },
-      { name: 'checkboxdata', keypath: 'checkboxdata', options: { unique: false } },
-    ]
-  }]
-};
+import { Globals } from './services/global.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,11 +19,16 @@ const dbConfig: DBConfig = {
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgxIndexedDBModule.forRoot(dbConfig),
     HttpClientModule
   ],
   providers: [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    private globals: Globals,
+    @Inject('globalEventDispatcherRef') private globalEventDispatcherRef: any) {
+this.globals.globalEventDistributor = globalEventDispatcherRef;
+}
+}
