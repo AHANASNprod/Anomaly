@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { assetUrl } from 'src/single-spa/asset-url';
+import { Globals } from './global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private globals: Globals) { }
   getTableData(): Observable<any> {
-    return this.http.get('https://container-config.herokuapp.com/api/con/tabledata');
+    return this.http.get(this.globals.apiEndPoint + '/con/tabledata');
   }
 }

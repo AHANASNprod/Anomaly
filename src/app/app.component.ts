@@ -23,11 +23,16 @@ export class AppComponent implements OnDestroy, OnInit {
     private router: Router,
     @Inject(forwardRef(() => Globals)) private globals: Globals) {
     singleSpaPropsSubject.subscribe((app: any) => {
-      if (app && app.mainApp && app.mainApp.namespace) {
-        this.namespace = app.mainApp.namespace;
-        this.router.config.unshift({
-          path: this.namespace + '-anomaly', children: [{ path: 'child', component: ChildComponent }]
-        });
+      if (app) {
+        if (app.apiEndPoint) {
+          this.globals.apiEndPoint = app.apiEndPoint;
+        }
+        if (app.mainApp && app.mainApp.namespace) {
+          this.namespace = app.mainApp.namespace;
+          this.router.config.unshift({
+            path: this.namespace + '-anomaly', children: [{ path: 'child', component: ChildComponent }]
+          });
+        }
       }
     });
     this.globals.globalEventDistributor.getDataFromContainer().subscribe((res) => {
